@@ -7,14 +7,7 @@ import TaskItens from "./TaskItem";
 import AddTask from "./AddTask";
 
 const Taks = () => {
-    const [tasks, setTasks] = useState([
-        {
-            id: 1,
-            description: "aula",
-            isCompleted: false,
-        },
-        
-    ])
+    const [tasks, setTasks] = useState([])
     
       const fetchTasks = async () => {
         try {
@@ -35,7 +28,7 @@ const Taks = () => {
 
         <div className="last-tasks">
             <h3>Ultimas Tarefas</h3>
-            <AddTask/>
+            <AddTask fetchTasks={fetchTasks}/>
             <div className="tasks-list">
                 {tasks.filter(task => task.isCompleted === false).map((lastTask)=> (
                     <TaskItens task={lastTask}/>
