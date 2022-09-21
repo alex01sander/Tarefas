@@ -4,6 +4,7 @@ import axios from "axios";
 import './Taks.scss'
 
 import TaskItens from "./TaskItem";
+import AddTask from "./AddTask";
 
 const Taks = () => {
     const [tasks, setTasks] = useState([
@@ -34,6 +35,7 @@ const Taks = () => {
 
         <div className="last-tasks">
             <h3>Ultimas Tarefas</h3>
+            <AddTask/>
             <div className="tasks-list">
                 {tasks.filter(task => task.isCompleted === false).map((lastTask)=> (
                     <TaskItens task={lastTask}/>
