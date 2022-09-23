@@ -1,10 +1,11 @@
-$background-color: linear-gradient(259.93deg, #000000 -41.68%, #00171f 146.85%);
+$background-color: linear-gradient(0deg, rgba(3,0,15,1) 0%, rgba(25,8,212,1) 100%);
 $primary-text-color: #ffffff;
 
 body {
   margin: 0;
-  font-family: 'Archivo', sans-serif;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
   background:$background-color ;
   color:$primary-text-color;
+  
 }
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 
 import './Taks.scss'
@@ -14,10 +14,18 @@ const Taks = () => {
             const { data } = await axios.get("https://fsc-task-manager-backend.herokuapp.com/tasks")
             console.log(data)
             setTasks(data);
-        } catch (error) {
-            console.log(error);
+        } catch (_error) {
+            console.log(_error);
         }
     };
+
+    const lastTask = useMemo(() => {
+        return tasks.filter(task => task.isCompleted === false)
+    }, [tasks])
+
+    const completedTask = useMemo(() => {
+        return tasks.filter(task => task.isCompleted === true)
+    }, [tasks])
     
     useEffect(() => {
         fetchTasks();
@@ -30,8 +38,8 @@ const Taks = () => {
             <h3>Ultimas Tarefas</h3>
             <AddTask fetchTasks={fetchTasks}/>
             <div className="tasks-list">
-                {tasks.filter(task => task.isCompleted === false).map((lastTask)=> (
-                    <TaskItens task={lastTask} fetchTasks={fetchTasks}/>
+                {lastTask.map((lastTask)=> (
+                    <TaskItens key={lastTask.id} task={lastTask} fetchTasks={fetchTasks}/>
                 ))}
                 
             </div>
@@ -40,8 +48,8 @@ const Taks = () => {
         <div className="completed-tasks">
             <h3>Tarefas Concluidas</h3>
             <div className="tasks-list">
-                {tasks.filter(task => task.isCompleted).map((completedTask)=>(
-                    <TaskItens task={completedTask}/>
+                {completedTask.map((completedTask)=>(
+                    <TaskItens key={completedTask.id} task={completedTask}/>
                 ))}
             </div>
         </div>

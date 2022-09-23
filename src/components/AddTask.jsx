@@ -33,13 +33,16 @@ const AddTask = ({fetchTasks}) => {
 
         await fetchTasks()
         setTask('')
-      } catch (error) {
+      } catch (_error) {
         alert.error("Algo deu errado.")
       }
     }
   return (
    <div className="add-task-container">
-        <CustomInput label={"Adicionar Tarefa..."} value={task} onChange={onChange}/>
+        <CustomInput label={"Adicionar Tarefa..."} 
+        value={task} 
+        onChange={onChange}
+        onEnterPress={handleTaskAddition}/>
         <CustomButton onClick={handleTaskAddition}>
          <FaPlus size={14} color='#ffffff'/>
         </CustomButton>

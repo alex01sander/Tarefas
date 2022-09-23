@@ -11,15 +11,27 @@ const TaskItem = ({task, fetchTasks}) => {
     try {
       await axios.delete(`https://fsc-task-manager-backend.herokuapp.com/tasks/${task._id}`);
 
-      fetchTasks()
-      
+      await fetchTasks()
+
       alert.success('A tarefa foi removida com sucesso!')
-    } catch (error) {
-      alert.error('Algo deu errado!')
+    } catch (_error) {
+      alert.error('Tente de novo!')
+      
     }
   }
 
+  const handleTaskCompletionChange = async(e) =>{
+    try {
+      await axios.patch(`https://fsc-task-manager-backend.herokuapp.com/tasks/${task._id}`,
+      { isCompleted: e.target.checked, 
+      });
+      await fetchTasks()
 
+      alert.success('A tarefa foi modificada com sucesso')
+    } catch (_error) {
+      alert.error('Houve algum erro')
+    }
+  } 
 
   return (
     <div className="task-item-container">
@@ -28,7 +40,8 @@ const TaskItem = ({task, fetchTasks}) => {
           task.isCompleted ? 'checkbox-container-completed' : "checkbox-container"
         }>
           {task.description}
-          <input type="checkbox" defaultChecked={task.isCompleted} />
+          <input type="checkbox" defaultChecked={task.isCompleted}
+           onChange={(e) => handleTaskCompletionChange(e)} />
           <span className={
             task.isCompleted ? 'checkmark completed' : 'checkmark'
           }></span>
